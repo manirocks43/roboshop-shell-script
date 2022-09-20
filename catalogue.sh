@@ -29,7 +29,7 @@ echo "installing nodejs dependencies"
 npm install &>>$LOG_FILE
 echo Status = $?
 
-echo "moving catalogue service file"
+echo "setup catalogue service file"
 mv /home/roboshop/catalogue/systemd.service /etc/systemd/system/catalogue.service &>>$LOG_FILE
 echo Status = $?
 
