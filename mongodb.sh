@@ -10,10 +10,5 @@ echo status = $?
 
 
 
-echo "starting mongodb service"
-systemctl enable mongod &>>$LOG_FILE
-systemctl restart mongod &>>$LOG_FILE
-echo status = $?
-
 
 
