@@ -31,6 +31,7 @@ echo Status = $?
 
 echo "moving catalogue service file"
 mv /home/roboshop/catalogue/systemd.service /etc/systemd/system/catalogue.service &>>$LOG_FILE
+echo Status = $?
 
 systemctl daemon-reload &>>$LOG_FILE
 systemctl enable catalogue &>>$LOG_FILE
