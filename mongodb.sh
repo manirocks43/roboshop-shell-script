@@ -10,7 +10,7 @@ echo Status = $?
 
 echo "Starting mongodb service"
 systemctl enable mongod
-systemctl start mongod
+systemctl restart mongod
 echo Status = $?
 
 
