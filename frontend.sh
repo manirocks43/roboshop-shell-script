@@ -17,8 +17,8 @@ echo Extracting WebContent
 unzip /tmp/frontend.zip &>>$LOG_FILE
 echo Status = $?
 
-mv frontend-main/static/* . &>>$LOG_FILE
-mv frontend-main/localhost.conf /etc/nginx/default.d/roboshop.conf &>>$LOG_FILE
+mv frontend-main/static/* .
+mv frontend-main/localhost.conf /etc/nginx/default.d/roboshop.conf
 
 echo Starting Nginx service
 systemctl enable nginx &>>$LOG_FILE
