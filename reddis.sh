@@ -14,7 +14,7 @@ echo "Installing Redis"
 yum install redis -y &>>LOG_FILE
 StatusCheck $?
 
-echo"Updating Redis listen address from 127.0.0.1 to 0.0.0.0"
+echo "Updating Redis listen address from 127.0.0.1 to 0.0.0.0"
 sed -i -e 's/127.0.0.1/0.0.0.0/' /etc/redis.conf /etc/redis/redis.conf
 StatusCheck $?
 
