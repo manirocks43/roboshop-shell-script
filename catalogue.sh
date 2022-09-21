@@ -7,7 +7,6 @@ if [ $ID -ne 0 ]
   exit 1
 fi
 
-
 echo "setup nodejs repo"
 curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>$LOG_FILE
 if [ $? -eq 0 ]
