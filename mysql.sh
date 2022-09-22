@@ -18,3 +18,19 @@ echo "start mysql service"
 systemctl enable mysqld &>>$LOG_FILE
 systemctl restart mysqld &>>$LOG_FILE
 StatusCheck $?
+
+DEFAULT_PASSWORD=$(grep 'A temporary password' /var/log/mysqld.log | awk '{print $NF}')
+
+echo "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('mypass');
+FLUSH PRIVILEGES;"
+
+mysql -uroot -pRoboShop@1
+
+uninstall plugin validate_password;
+
+curl -s -L -o /tmp/mysql.zip "https://github.com/roboshop-devops-project/mysql/archive/main.zip"
+
+cd /tmp
+unzip mysql.zip
+cd mysql-main
+mysql -u root -pRoboShop@1 <shipping.sql
