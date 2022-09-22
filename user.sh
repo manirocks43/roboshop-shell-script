@@ -1,7 +1,7 @@
-LOG_FILE=/tmp/user
+COMPONENT=user
+LOG_FILE=/tmp/$COMPONENT
 
 source common.sh
-COMPONENT=user
 
 NODEJS
 
