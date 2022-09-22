@@ -43,7 +43,7 @@ sed -i -e ' s/REDIS_ENDPOINT/redis.roboshop.internal/' -e 's/MONGO_ENDPOINT/mong
 StatusCheck $?
 
 echo "setup user service file"
-mv /home/roboshop/user/systemd.service /etc/systemd/system/cuser.service &>>$LOG_FILE
+mv /home/roboshop/user/systemd.service /etc/systemd/system/user.service &>>$LOG_FILE
 StatusCheck $?
 
 systemctl daemon-reload &>>$LOG_FILE
