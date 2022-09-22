@@ -50,5 +50,5 @@ systemctl daemon-reload &>>$LOG_FILE
 systemctl enable user &>>$LOG_FILE
 
 echo "starting user service"
-systemctl restart user
+systemctl start user &>>$LOG_FILE
 StatusCheck $?
