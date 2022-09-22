@@ -1,4 +1,5 @@
 LOG_FILE=/tmp/mysql
+
 source common.sh
 
 echo "Setup mysql Repo file"
@@ -17,22 +18,3 @@ echo "start mysql service"
 systemctl enable mysqld &>>LOG_FILE
 systemctl restart mysqld &>>LOG_FILE
 StatusCheck $?
-
-grep temp /var/log/mysqld.log
-
-mysql_secure_installation
-
-mysql -uroot -pRoboShop@1
-
-uninstall plugin validate_password;
-
-
-curl -s -L -o /tmp/mysql.zip "https://github.com/roboshop-devops-project/mysql/archive/main.zip"
-
-cd /tmp
-
-unzip mysql.zip
-
-cd mysql-main
-
-mysql -u root -pRoboShop@1 <shipping.sql
