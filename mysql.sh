@@ -21,17 +21,16 @@ StatusCheck $?
 
 DEFAULT_PASSWORD=$(grep 'A temporary password' /var/log/mysqld.log | awk '{print $NF}')
 
-echo "SET PASSWORD FOR 'root'@'localhost' =PASSWORD('$ROBOSHOP_MYSQL_PASSWORD');
+echo "SET PASSWORD FOR 'root'@'localhost' =PASSWORD('${ROBOSHOP_MYSQL_PASSWORD}');
 FLUSH PRIVILEGES;" >/tmp/root-pass.sql
 
-echo "show databases;" | mysql -uroot -p$ROBOSHOP_MYSQL_PASSWORD &>>$LOG_FILE
+echo "show databases;" |mysql -uroot -p${ROBOSHOP_MYSQL_PASSWORD} &>>$LOG_FILE
 if [ $? -ne 0 ]; then
   echo "change the default root password"
-  mysql --connect-expired-password -uroot -p"$DEFAULT_PASSWORD" </tmp/root-pass.sql &>>$LOG_FILE
+  mysql --connect-expired-password -uroot -p"${DEFAULT_PASSWORD}" </tmp/root-pass.sql &>>$LOG_FILE
   StatusCheck $?
 fi
 
-mysql -uroot -pRoboShop@1
 
 uninstall plugin validate_password;
 
