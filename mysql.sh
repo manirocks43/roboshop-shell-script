@@ -38,9 +38,16 @@ if [ $? -eq 0 ]; then
   StatsuCheck $?
 fi
 
-curl -s -L -o /tmp/mysql.zip "https://github.com/roboshop-devops-project/mysql/archive/main.zip"
+echo "Extract mysql schema"
+curl -s -L -o /tmp/mysql.zip "https://github.com/roboshop-devops-project/mysql/archive/main.zip" &>>LOG_FILE
+StatsuCheck $?
 
+echo "extract Schema file"
 cd /tmp
-unzip mysql.zip
+unzip -o mysql.zip &>>LOG_FILE
+StatsuCheck $?
+
+echo "load schema file"
 cd mysql-main
-mysql -u root -pRoboShop@1 <shipping.sql
+mysql -u root -p${ROBOSHOP_MYSQL_PASSWORD} <shipping.sql &>>LOG_FILE
+StatsuCheck $?
