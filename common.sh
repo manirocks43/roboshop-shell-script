@@ -14,20 +14,13 @@ StatusCheck () {
   fi
 }
 
-NODEJS() {
-  echo "setup nodejs repo"
-  curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>$LOG_FILE
-  StatusCheck $?
 
-  echo "installing nodejs repo"
-  yum install nodejs -y &>>$LOG_FILE
-  StatusCheck $?
-
+APP_PREREQ() {
   id roboshop &>>$LOG_FILE
   if [ $? -ne 0 ] ; then
-    echo "Adding roboshop user"
-    useradd roboshop &>>$LOG_FILE
-    StatusCheck $?
+     echo "Adding roboshop user"
+     useradd roboshop &>>$LOG_FILE
+     StatusCheck $?
   fi
 
   echo "downloading $COMPONENT application"
@@ -46,13 +39,12 @@ NODEJS() {
 
   mv $COMPONENT-main $COMPONENT
   cd /home/roboshop/$COMPONENT
+}
 
-  echo "installing nodejs dependencies"
-  npm install &>>$LOG_FILE
-  StatusCheck $?
 
+SYSTEMD_SETUP() {
   echo "update systemd service file"
-  sed -i -e 's/REDIS_ENDPOINT/redis.roboshop.internal/' -e 's/MONGO_ENDPOINT/mongodb.roboshop.internal/' -e 's/CATALOGUE_ENDPOINT/catalogue.roboshop.internal/' -e 's/MONGO_DNSNAME/mongodb.roboshop.internal/' /home/roboshop/$COMPONENT/systemd.service
+  sed -i -e 's/REDIS_ENDPOINT/redis.roboshop.internal/' -e 's/DBHOST/mysql.roboshop.internal/' -e 's/MONGO_ENDPOINT/mongodb.roboshop.internal/' -e 's/CATALOGUE_ENDPOINT/catalogue.roboshop.internal/' -e 's/CARTENDPOINT/cart.roboshop.internal/' -e 's/MONGO_DNSNAME/mongodb.roboshop.internal/' /home/roboshop/$COMPONENT/systemd.service
   StatusCheck $?
 
   echo "setup $COMPONENT service file"
@@ -65,4 +57,34 @@ NODEJS() {
   echo "starting $COMPONENT service"
   systemctl start $COMPONENT &>>$LOG_FILE
   StatusCheck $?
+}
+
+
+NODEJS() {
+  echo "setup nodejs repo"
+  curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>$LOG_FILE
+  StatusCheck $?
+
+  echo "installing nodejs repo"
+  yum install nodejs -y &>>$LOG_FILE
+  StatusCheck $?
+
+  echo "installing nodejs dependencies"
+  npm install &>>$LOG_FILE
+  StatusCheck $?
+}
+
+JAVA() {
+  echo"Install Maven"
+  yum install maven -y &>>LOG_FILE
+  StatusCheck $?
+
+  APP_PREREQ
+
+  echo"download dependencies and & make package"
+  mvn clean package &>>$LOG_FILE
+  mv target/$COMPONENT-1.0.jar $COMPONENT.jar &>>$LOG_FILE
+  StatusCheck $?
+  
+  SYSTEMD_SETUP
 }
