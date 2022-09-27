@@ -44,7 +44,7 @@ APP_PREREQ() {
 
 SYSTEMD_SETUP() {
   echo "update systemd service file"
-  sed -i -e 's/REDIS_ENDPOINT/redis.roboshop.internal/' -e 's/DBHOST/mysql.roboshop.internal/' -e 's/MONGO_ENDPOINT/mongodb.roboshop.internal/' -e 's/CATALOGUE_ENDPOINT/catalogue.roboshop.internal/' -e 's/CARTENDPOINT/cart.roboshop.internal/' -e 's/MONGO_DNSNAME/mongodb.roboshop.internal/' -e "s/CARTHOST/cart.roboshop.internal" -e "s/USERHOST/user.roboshop.internal" -e"s/AMQPHOST/rabbitmq.roboshop.internal" /home/roboshop/$COMPONENT/systemd.service
+  sed -i -e 's/REDIS_ENDPOINT/redis.roboshop.internal/' -e 's/DBHOST/mysql.roboshop.internal/' -e 's/MONGO_ENDPOINT/mongodb.roboshop.internal/' -e 's/CATALOGUE_ENDPOINT/catalogue.roboshop.internal/' -e 's/CARTENDPOINT/cart.roboshop.internal/' -e 's/MONGO_DNSNAME/mongodb.roboshop.internal/' -e 's/CARTHOST/cart.roboshop.internal' -e 's/USERHOST/user.roboshop.internal' -e 's/AMQPHOST/rabbitmq.roboshop.internal' /home/roboshop/$COMPONENT/systemd.service
   StatusCheck $?
 
   echo "setup $COMPONENT service file"
