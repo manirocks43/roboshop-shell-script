@@ -17,6 +17,9 @@ StatusCheck $?
 go build &>>$LOG_FILE
 StatusCheck $?
 
+SYSTEMD_SETUP
+
+
 
 
 
