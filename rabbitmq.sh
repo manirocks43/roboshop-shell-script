@@ -6,8 +6,12 @@ echo "Setup RabbitMQ repos"
 curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh | bash &>>$LOG_FILE
 StatusCheck $?
 
-echo "Installing Erlang and RabbitMQ"
-yum install https://github.com/rabbitmq/erlang-rpm/releases/download/v23.2.6/erlang-23.2.6-1.el7.x86_64.rpm rabbitmq-server -y &>>$LOG_FILE
+echo "Installing Erlang"
+yum install https://github.com/rabbitmq/erlang-rpm/releases/download/v23.2.6/erlang-23.2.6-1.el7.x86_64.rpm -y &>>$LOG_FILE
+StatusCheck $?
+
+echo "Installing RabbitMQ"
+yum install rabbitmq-server -y --nobest &>>$LOG_FILE
 StatusCheck $?
 
 echo "Starting RabbitMQ server"
