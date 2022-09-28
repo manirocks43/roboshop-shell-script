@@ -31,13 +31,12 @@ StatusCheck $?
 
 cd mongodb-main
 
-echo "Load catalogue service schema"
-mongo < catalogue.js &>>$LOG_FILE
+echo "Load schema"
+for schema in catalogue.js users.js ; do
+  mongo < ${schema}  &>>$LOG_FILE
+done
 StatusCheck $?
 
-echo "Load user service schema"
-mongo < users.js &>>$LOG_FILE
-StatusCheck $?
 
 
 
