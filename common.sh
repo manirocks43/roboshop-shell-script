@@ -1,4 +1,4 @@
-ID=$(id - u)
+ID=$(id -u)
 if [ $ID -ne 0 ]
   then
   echo You should run this script as a root user or with sudo privilages
@@ -14,7 +14,6 @@ StatusCheck () {
     exit 1
   fi
 }
-
 
 APP_PREREQ() {
   id roboshop &>>$LOG_FILE
