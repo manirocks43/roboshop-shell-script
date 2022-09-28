@@ -75,13 +75,13 @@ NODEJS() {
 }
 
 JAVA() {
-  echo"Install Maven"
+  echo "Install Maven"
   yum install maven -y &>>LOG_FILE
   StatusCheck $?
 
   APP_PREREQ
 
-  echo"download dependencies and & make package"
+  echo "download dependencies and & make package"
   mvn clean package &>>$LOG_FILE
   mv target/$COMPONENT-1.0.jar $COMPONENT.jar &>>$LOG_FILE
   StatusCheck $?
