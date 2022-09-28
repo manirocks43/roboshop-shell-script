@@ -69,9 +69,13 @@ NODEJS() {
   yum install nodejs -y &>>$LOG_FILE
   StatusCheck $?
 
+  APP_PREREQ
+
   echo "installing nodejs dependencies"
   npm install &>>$LOG_FILE
   StatusCheck $?
+
+  SYSTEMD_SETUP
 }
 
 JAVA() {
