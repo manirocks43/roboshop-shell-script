@@ -74,21 +74,6 @@ NODEJS() {
   SYSTEMD_SETUP
 }
 
-JAVA() {
-  echo "Install Maven"
-  yum install maven -y &>>LOG_FILE
-  StatusCheck $?
-
-  APP_PREREQ
-
-  echo "download dependencies and & make package"
-  mvn clean package &>>$LOG_FILE
-  mv target/$COMPONENT-1.0.jar $COMPONENT.jar &>>$LOG_FILE
-  StatusCheck $?
-  
-  SYSTEMD_SETUP
-}
-
 PYTHON () {
   echo "installing python3"
   yum install python36 gcc python3-devel -y &>>$LOG_FILE
